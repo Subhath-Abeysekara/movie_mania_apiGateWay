@@ -18,9 +18,9 @@ public class mainServiceImpl implements mainService{
 
     @Override
     public String addRequest(Long id , requestDto request , String multicode) {
-        boolean availability = Boolean.TRUE.equals(restTemplate.getForObject("http://localhost:9001/movie/getAvailability/" + id, Boolean.class));
+        boolean availability = Boolean.TRUE.equals(restTemplate.getForObject("http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9001/movie/getAvailability/" + id, Boolean.class));
         if(availability){
-            String url2 = "http://localhost:9002/request/addRequest/"+multicode;
+            String url2 = "http://ec2-43-204-107-189.ap-south-1.compute.amazonaws.com:9002/request/addRequest/"+multicode;
             HttpEntity entity2 = new HttpEntity<>(request);
             ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.POST,entity2, String.class);
             return res.getBody();
@@ -29,7 +29,7 @@ public class mainServiceImpl implements mainService{
     }
 
     private boolean checkAdmin(String token){
-        String url = "http://localhost:9003/movie/getvalidity/";
+        String url = "http://ec2-13-126-249-95.ap-south-1.compute.amazonaws.com:9003/movie/getvalidity/";
         HttpHeaders headers = new HttpHeaders();
         headers.set("header" , token);
         HttpEntity entity = new HttpEntity<>("",headers);
@@ -42,8 +42,9 @@ public class mainServiceImpl implements mainService{
         if (!checkAdmin(token)){
             return "error token";
         }
+        System.out.println("token ok");
 
-        String url2 = "http://localhost:9001/movie/addMovie/";
+        String url2 = "http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9004/movie/addMovie";
         HttpEntity entity2 = new HttpEntity<>(movie);
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.POST,entity2, String.class);
         return res.getBody();
@@ -55,7 +56,7 @@ public class mainServiceImpl implements mainService{
             return "error token";
         }
 
-        String url2 = "http://localhost:9001/movie/updateMovie/";
+        String url2 = "http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9004/movie/updateMovie/";
         HttpEntity entity2 = new HttpEntity<>(movieUpdateData);
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.PUT,entity2, String.class);
         return res.getBody();
@@ -67,7 +68,7 @@ public class mainServiceImpl implements mainService{
             return "error token";
         }
 
-        String url2 = "http://localhost:9001/movie/deleteMovie/"+id;
+        String url2 = "http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9004/movie/deleteMovie/"+id;
         HttpEntity entity2 = new HttpEntity<>("");
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.DELETE,entity2, String.class);
         return res.getBody();
@@ -79,7 +80,7 @@ public class mainServiceImpl implements mainService{
             return "error token";
         }
 
-        String url2 = "http://localhost:9002/request/rejectRequest/";
+        String url2 = "http://ec2-43-204-107-189.ap-south-1.compute.amazonaws.com:9002/request/rejectRequest/";
         HttpEntity entity2 = new HttpEntity<>(rejectDto);
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.PUT,entity2, String.class);
         return res.getBody();
@@ -91,7 +92,7 @@ public class mainServiceImpl implements mainService{
             return "error token";
         }
 
-        String url2 = "http://localhost:9002/request/confirmRequest/"+id;
+        String url2 = "http://ec2-43-204-107-189.ap-south-1.compute.amazonaws.com:9002/request/confirmRequest/"+id;
         HttpEntity entity2 = new HttpEntity<>("");
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.PUT,entity2, String.class);
         return res.getBody();

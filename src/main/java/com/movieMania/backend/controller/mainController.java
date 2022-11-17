@@ -23,8 +23,8 @@ public class mainController {
     }
 
     @PostMapping("/addMovie")
-    private String addMovie(@RequestHeader String header , @RequestBody movie movie) {
-        return mainService.addMovie(header , movie);
+    private String addMovie(@RequestBody movieDto movie  ) {
+        return mainService.addMovie(movie.getToken() , movie.getMovie());
     }
 
     @PutMapping("/updateMovie")
