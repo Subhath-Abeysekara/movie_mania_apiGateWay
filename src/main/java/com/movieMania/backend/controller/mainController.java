@@ -28,8 +28,8 @@ public class mainController {
     }
 
     @PutMapping("/updateMovie")
-    private String updateMovie(@RequestHeader String header , @RequestBody movieUpdateData movieUpdateData) {
-        return mainService.updateMovie(header , movieUpdateData);
+    private String updateMovie(@RequestBody movieUpdateDto movieUpdateDto) {
+        return mainService.updateMovie(movieUpdateDto.getToken() , movieUpdateDto.getMovieUpdateData());
     }
 
     @PutMapping("/rejectRequest")

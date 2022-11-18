@@ -29,7 +29,7 @@ public class mainServiceImpl implements mainService{
     }
 
     private boolean checkAdmin(String token){
-        String url = "http://ec2-13-126-249-95.ap-south-1.compute.amazonaws.com:9003/movie/getvalidity/";
+        String url = "http://ec2-13-126-249-95.ap-south-1.compute.amazonaws.com:9003/movie/getvalidity";
         HttpHeaders headers = new HttpHeaders();
         headers.set("header" , token);
         HttpEntity entity = new HttpEntity<>("",headers);
@@ -56,7 +56,7 @@ public class mainServiceImpl implements mainService{
             return "error token";
         }
 
-        String url2 = "http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9004/movie/updateMovie/";
+        String url2 = "http://ec2-13-233-137-75.ap-south-1.compute.amazonaws.com:9004/movie/updateMovie";
         HttpEntity entity2 = new HttpEntity<>(movieUpdateData);
         ResponseEntity<String> res = restTemplate.exchange(url2, HttpMethod.PUT,entity2, String.class);
         return res.getBody();

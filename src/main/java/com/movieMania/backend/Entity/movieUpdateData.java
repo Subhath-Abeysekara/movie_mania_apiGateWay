@@ -23,6 +23,8 @@ public class movieUpdateData {
 
     List<roles> roles;
 
+    String token;
+
 
     public movieUpdateData() {
     }
